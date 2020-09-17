@@ -2,11 +2,6 @@ import React, { useEffect } from 'react'
 import LoginForm from '../components/LoginForm'
 import useLogin from '../hooks/useLogin'
 
-export interface user{
-    username: string;
-    password: string;
-}
-
 const Login: React.FC = (props) => {
     const [
         values,
