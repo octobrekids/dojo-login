@@ -1,28 +1,26 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import LoginForm from '../components/LoginForm'
 import useLogin from '../hooks/useLogin'
 
-const Login: React.FC = (props) => {
+const Login: React.FC = () => {
     const [
         values,
-        onChange,
-        loading,
         errors,
+        loading,
+        loggedIn,
+        onChange,
         onSubmit
     ] = useLogin() as any;
-
-    useEffect(() => {
-        console.log(values)
-    }, [values])
 
     return (
         <div>
             <LoginForm
-            values={values}
-            errors={errors}
-            loading={loading}
-            onChange={onChange}
-               onSubmit={onSubmit}
+                values={values}
+                errors={errors}
+                loading={loading}
+                loggedIn={loggedIn}
+                onChange={onChange}
+                onSubmit={onSubmit}
             />
         </div>
     )

@@ -1,25 +1,27 @@
 import React from 'react'
-import { user } from '../pages/Login'
+import { FormValue } from '../hooks/useLogin'
+
 const LoginForm: React.FC<{
-    values:user,
-    onChange:(e: React.ChangeEvent<HTMLInputElement>) => void,
-    onSubmit:(e: React.FormEvent<HTMLButtonElement>) => void,
+    values: FormValue[],
     errors: boolean,
     loading: boolean,
+    loggedIn: boolean,
+    onChange:(e: React.ChangeEvent<HTMLInputElement>) => void,
+    onSubmit:() => void,
     }> = (props) => {
 
-        const {onChange,onSubmit,errors,loading} = props
+        const {errors,loading,loggedIn,onChange,onSubmit} = props
     
     return (
         <div>
-            
             <label>Username</label><br />
             <input type="text" id="username" name="username" onChange={onChange}/><br />
             <label>Password</label><br />
             <input type="text" id="password" name="password" onChange={onChange}/><br /><br />
             {errors ? <p>please check username or password</p> : null}
             {loading ? <div className="loader"></div> : null}
-            <button type="submit" onClick={onSubmit} >Login</button>
+            {loggedIn ? <p>Login success</p> : null}
+            <button type="submit" onClick={onSubmit}>Login</button>
         </div>
     )
 }
