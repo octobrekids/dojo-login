@@ -1,6 +1,6 @@
-import React, { useReducer, useState } from 'react'
+import { useState } from 'react'
 
-type FormValue = {
+export type FormValue = {
     value: string,
     name: string
 }
@@ -9,102 +9,42 @@ type UseLogin = [
     FormValue[],
     boolean,
     boolean,
+    boolean,
     (e: React.ChangeEvent<HTMLInputElement>) => void,
-    (e: React.FormEvent) => void
+    () => void
 ]
-
-// type LoginAction =
-// | { type: 'login' | 'success' | 'error' }
-// | { type: 'field'; name:string; value:string;};
-
-
-// const loginReducer = (state: UseLogin, action: LoginAction) => {
-//     switch (action.type) {
-
-//         case 'field' : {
-//             return{
-//                 ...state,
-//                 [action.name] : action.value
-//             }
-//         }
-
-//         case 'login': {
-//             return {
-//                 ...state,
-//                 errors: '',
-//                 loading: true,
-//             }
-//         }
-
-//         case 'success': {
-//             return {
-//                 ...state,
-//                 loading: false
-//             }
-//         }
-
-//         case 'error': {
-//             return {
-//                 ...state,
-//                 errors: 'Incorrect username or password',
-//                 loading: false,
-//             }
-//         }
-
-//         default:
-//             return state;
-//     }
-// }
 
 const useLogin = (): UseLogin => {
 
     const [values, setValues] = useState<FormValue[]>([])
     const [errors, setErrors] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
-    // const [state, dispatch] = useReducer(loginReducer, initialState);
-    // const {  values,
-    //     onChange,
-    //     loading,
-    //     errors,
-    //     onSubmit } = state;
+    const [loggedIn, setLoggedIn] = useState<boolean>(false)
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({...values,[e.target.name]: e.target.value})
-        console.log(e.target.value)
+        console.log('change')
+        setValues({...values, [e.target.name]:e.target.value})
         return;
     }
-
     
-    const onSubmit =  (e: React.FormEvent) => {
-        e.preventDefault();
-
-        // dispatch({ type: 'login' })
-
-        // if(username&&password)
-        // {
-        //     dispatch({ type: 'success' })
-        // }
-        // else{
-        //     dispatch({ type: 'error' })
-        // }
-
-        const ready = values.every(e => e.value !== '')
-        if(ready)
-       {
-           
-        console.log('yes')
-        setLoading(true);
-        setTimeout( function(){  setLoading(false);}, 3000);
-        setErrors(false);
-       }
-       else {
-        console.log('no')
-        setErrors(true);
-       }
+    const onSubmit =  () => {
+        const array = Object.values(values)
+        const ready = array[0] && array[1]
+        if(ready) 
+        {
+            setErrors(false)
+            setLoading(true)
+            setTimeout(() => {setLoading(false); setLoggedIn(true);},1500)
+            setValues([])
+        }
+        else{
+            console.log('no')
+            setErrors(true)
+        }
+       return;
     }
 
-    return [values,errors,loading, onChange, onSubmit]
-    // return [values,errors,loading, onChange, () => onSubmit()]
+    return [values,errors,loading,loggedIn,onChange, onSubmit]
 }
 
 export default useLogin
