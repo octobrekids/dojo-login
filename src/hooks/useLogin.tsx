@@ -1,37 +1,40 @@
 import { useState } from 'react'
-import FormValue, { UseLogin } from '../model/interface'
+import { FormValue, UseLogin } from '../model/interface'
 
 const useLogin = (): UseLogin => {
 
-    const [values, setValues] = useState<FormValue[]>([])
+    const [values, setValues] = useState<FormValue[]>([
+        { name: 'username', value: '', },
+        { name: 'password', value: '', }
+    ])
     const [errors, setErrors] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
     const [loggedIn, setLoggedIn] = useState<boolean>(false)
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('change')
-        setValues({...values, [e.target.name]:e.target.value})
-        return;
+        // setValues({...values, [e.target.name]:e.target.value})
+        const forms = values.map(el => el.name === e.target.name ?
+            { name: e.target.name, value: e.target.value } : el)
+        setValues(forms)
     }
-    
-    const onSubmit =  () => {
+
+    const onSubmit = () => {
         const array = Object.values(values)
         const ready = array[0] && array[1]
-        if(ready) 
-        {
+        if (ready) {
             setErrors(false)
             setLoading(true)
-            setTimeout(() => {setLoading(false); setLoggedIn(true);},1500)
+            setTimeout(() => { setLoading(false); setLoggedIn(true); }, 1500)
             setValues([])
         }
-        else{
+        else {
             console.log('no')
             setErrors(true)
         }
-       return;
+        return;
     }
 
-    return [values,errors,loading,loggedIn,onChange, onSubmit]
+    return [values, errors, loading, loggedIn, onChange, onSubmit]
 }
 
 export default useLogin
