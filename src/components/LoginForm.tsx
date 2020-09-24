@@ -5,7 +5,6 @@ const LoginForm: React.FC<FormState> = (props) => {
 
     const { values, errors, loading, loggedIn, onChange, onSubmit } = props
 
-
     return (
         <div>
             {values && values.map((e, i) =>
@@ -19,7 +18,7 @@ const LoginForm: React.FC<FormState> = (props) => {
             )}
             <br /><br />
             {errors ? <p>please check username or password</p> : null}
-            {loading ? <div className="loader"></div> : null}
+            {loading ? <p>loading...</p> : null}
             {loggedIn ? <p>Login success</p> : null}
             <button type="submit" onClick={onSubmit}>Login</button>
         </div>
