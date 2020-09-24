@@ -1,18 +1,5 @@
 import { useState } from 'react'
-
-export type FormValue = {
-    value: string,
-    name: string
-}
-
-type UseLogin = [
-    FormValue[],
-    boolean,
-    boolean,
-    boolean,
-    (e: React.ChangeEvent<HTMLInputElement>) => void,
-    () => void
-]
+import FormValue, { UseLogin } from '../model/interface'
 
 const useLogin = (): UseLogin => {
 

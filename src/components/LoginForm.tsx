@@ -1,5 +1,8 @@
 import React from 'react'
-import { FormValue } from '../hooks/useLogin'
+import FormValue from '../model/interface'
+
+
+
 
 const LoginForm: React.FC<{
     values: FormValue[],
@@ -10,7 +13,8 @@ const LoginForm: React.FC<{
     onSubmit:() => void,
     }> = (props) => {
 
-        const {errors,loading,loggedIn,onChange,onSubmit} = props
+        const {values,errors,loading,loggedIn,onChange,onSubmit} = props
+        console.log(values)
     
     return (
         <div>
