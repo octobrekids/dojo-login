@@ -19,8 +19,7 @@ const useLogin = (): UseLogin => {
     }
 
     const onSubmit = () => {
-        const array = Object.values(values)
-        const ready = array[0] && array[1]
+        const ready = values.every(el => el.value !== '')
         if (ready) {
             setErrors(false)
             setLoading(true)
