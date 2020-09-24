@@ -13,14 +13,16 @@ export type UseLogin = [
 ];
 
 export interface FormState {
-        values: FormValue[],
+        values?: FormValue[],
         errors: boolean,
         loading: boolean,
         loggedIn: boolean,
-        onChange:(e: React.ChangeEvent<HTMLInputElement>) => void,
-        onSubmit:() => void, 
+        onChange?:(e: React.ChangeEvent<HTMLInputElement>) => void,
+        onSubmit?:() => void, 
 }
 
-export default interface LoginState {
-  type: "login" | "loading" | "success" | "error";
-}
+export type LoginAction = 
+ | {type : "login" }
+ | {type : "success"}
+ | {type : "error"}
+
