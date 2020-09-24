@@ -3,10 +3,12 @@ import { FormValue, UseLogin } from '../model/interface'
 
 const useLogin = (): UseLogin => {
 
-    const [values, setValues] = useState<FormValue[]>([
+    const initialState = [
         { name: 'username', value: '', },
         { name: 'password', value: '', }
-    ])
+    ]
+
+    const [values, setValues] = useState<FormValue[]>(initialState)
     const [errors, setErrors] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
     const [loggedIn, setLoggedIn] = useState<boolean>(false)
@@ -24,7 +26,7 @@ const useLogin = (): UseLogin => {
             setErrors(false)
             setLoading(true)
             setTimeout(() => { setLoading(false); setLoggedIn(true); }, 1500)
-            setValues([])
+            setValues(initialState)
         }
         else {
             console.log('no')
